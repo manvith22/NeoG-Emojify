@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from 'react';
+import "./styles.css";
+
+const emojiDictionary = {
+  "😊": "Smiling",
+  "😳": "disbelief",
+  "😔": "sad",
+  "🥡": "takeout box",
+  "❤️": "love",
+  "😑": "annoyance" 
+};
+
+var dataToString = Object.keys(emojiDictionary);
 
 function App() {
+
+  const [result,setResult] = useState("");
+
+  function inputTextHandler(event){
+    const inputText = event.target.value;
+    var meaning = emojiDictionary[inputText];
+    
+    if(meaning === undefined){
+      meaning = "try something else";
+    }
+
+    setResult(meaning);
+  }
+
+  function emojiClickHandler(item){
+    var meaning = emojiDictionary[item];
+    setResult(meaning);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header>Emojify</header>
+      <input onChange={inputTextHandler} />
+      <h2>{result}</h2>
+      {
+        dataToString.map((item) =>{
+          return <span onClick={() =>emojiClickHandler(item)} key={item}>{item}</span>
+        })
+      }
     </div>
   );
 }
