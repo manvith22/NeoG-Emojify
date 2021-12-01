@@ -42,6 +42,7 @@ function App() {
           return <span onClick={() =>emojiClickHandler(item)} key={item}>{item}</span>
         })
       }
+      <h4>Click on any emoji to check its meaning</h4>
     </div>
   );
 }
